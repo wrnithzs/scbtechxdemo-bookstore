@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,8 +20,10 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	private String name;
 	private String author;
 	private float price;
-	private boolean isRecommended;
+	@JsonProperty("is_recommended")
+	private Boolean isRecommended;
 
 }
