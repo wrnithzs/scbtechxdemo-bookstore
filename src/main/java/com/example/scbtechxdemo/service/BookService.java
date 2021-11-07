@@ -9,6 +9,8 @@ public interface BookService {
 
 	List<Book> getAllBooks();
 
+	List<Book> getAllBooksSortByNameAndRecommended();
+
 	Book getBookById(Long id);
 
 	Book createBook(BookRequest bookRequest);

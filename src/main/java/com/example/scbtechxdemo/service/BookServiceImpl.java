@@ -1,8 +1,11 @@
 package com.example.scbtechxdemo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import com.example.scbtechxdemo.controller.request.BookRequest;
@@ -62,6 +65,19 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void deleteBook(Long id) {
 		booksRepository.deleteById(id);
+	}
+
+	@Override
+	public List<Book> getAllBooksSortByNameAndRecommended() {
+		List<Order> orders = new ArrayList<Order>();
+
+		Order isRecommended = new Order(Sort.Direction.DESC, "isRecommended");
+		orders.add(isRecommended);
+		Order name = new Order(Sort.Direction.ASC, "name");
+		orders.add(name);
+
+		return booksRepository.findAll(Sort.by(orders));
+
 	}
 
 }
