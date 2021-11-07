@@ -1,5 +1,7 @@
 package com.example.scbtechxdemo.model;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +24,7 @@ public class Book {
 
 	private String name;
 	private String author;
-	private float price;
+	private BigDecimal price;
 	@JsonProperty("is_recommended")
 	private Boolean isRecommended;
 

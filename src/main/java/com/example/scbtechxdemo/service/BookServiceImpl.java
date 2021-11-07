@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import com.example.scbtechxdemo.controller.request.BookRequest;
+import com.example.scbtechxdemo.exception.BookNotFoundException;
 import com.example.scbtechxdemo.model.Book;
 import com.example.scbtechxdemo.repository.BookRepository;
 
@@ -33,7 +34,7 @@ public class BookServiceImpl implements BookService {
 		if (book.isPresent()) {
 			return book.get();
 		}
-		return new Book();
+		throw new BookNotFoundException(id);
 	}
 
 	@Override
@@ -59,12 +60,17 @@ public class BookServiceImpl implements BookService {
 			existingBook.setIsRecommended(bookRequest.getIsRecommended());
 			return booksRepository.save(existingBook);
 		}
-		return new Book();
+		throw new BookNotFoundException(id);
 	}
 
 	@Override
 	public void deleteBook(Long id) {
-		booksRepository.deleteById(id);
+		try {
+			booksRepository.deleteById(id);
+		} catch (Exception e) {
+			throw new BookNotFoundException(id);
+		}
+
 	}
 
 	@Override
