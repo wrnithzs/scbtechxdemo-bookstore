@@ -16,10 +16,11 @@ import com.example.scbtechxdemo.repository.BookRepository;
 @Service
 public class BookServiceImpl implements BookService {
 
-	BookRepository booksRepository;
+	private BookRepository booksRepository;
 
 	BookServiceImpl(BookRepository booksRepository) {
 		this.booksRepository = booksRepository;
+
 	}
 
 	@Override

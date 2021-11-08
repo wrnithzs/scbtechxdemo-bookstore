@@ -1,7 +1,7 @@
 package com.example.scbtechxdemo.service;
 
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,19 +11,17 @@ import com.example.scbtechxdemo.model.User;
 import com.example.scbtechxdemo.repository.UserRepository;
 
 @Service
-public class UserServiceImpl implements  UserService{
-	@Autowired
-	 UserRepository userRepository;
-	
+public class UserServiceImpl implements UserService {
+
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+	private UserRepository userRepository;
 
 
-	public UserServiceImpl(UserRepository userReposirory, BCryptPasswordEncoder bCryptPasswordEncoder) {
-		
-		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+
 		this.userRepository = userRepository;
-		
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+
 	}
 
 	@Override
@@ -31,13 +29,20 @@ public class UserServiceImpl implements  UserService{
 		User user = userRepository.findByUsername(userRequest.getUsername());
 		if (user == null) {
 			user = new User().setUsername(userRequest.getUsername())
-			.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()))
-			.setName(userRequest.getName())
-			.setSurname(userRequest.getSurname())
-			.setDateOfBirth(userRequest.getDateOfBirth());
+					.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword())).setName(userRequest.getName()).setRole(userRequest.getRole())
+					.setSurname(userRequest.getSurname()).setDateOfBirth(userRequest.getDateOfBirth());
 			return userRepository.save(user);
-		}
+			}
 		throw new UserDuplicateException(userRequest.getUsername());
+	}
+
+	@Override
+	public User findUserByUsername(String username) {
+		Optional<User> user = Optional.ofNullable(userRepository.findByUsername(username));
+		if (user.isPresent()) {
+			return user.get();
+		}
+		return null;
 	}
 
 }

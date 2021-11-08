@@ -26,10 +26,13 @@ public class User {
 	private long id;
 	
 	@Column(nullable = false, unique = true)
-	
 	private String username;
+	
 	@Column(nullable = false, unique = true)
 	private String password;
+	
+	@Column(nullable = false, unique = true)
+	private String role;
 	
 	private String name;
 	private String surname;
