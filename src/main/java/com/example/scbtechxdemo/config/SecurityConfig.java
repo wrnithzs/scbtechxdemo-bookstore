@@ -37,9 +37,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/users/*").permitAll()
+				.antMatchers("/*").permitAll()
 				.antMatchers("/books").permitAll()
-				.antMatchers(HttpMethod.DELETE, "/users/*").hasAnyAuthority("user").anyRequest().authenticated()
+				.antMatchers(HttpMethod.POST, "/users").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/users/*").hasAnyAuthority("user")
+				.antMatchers(HttpMethod.GET, "/users").hasAnyAuthority("user")
+				.antMatchers(HttpMethod.POST, "/users/orders").hasAnyAuthority("user").anyRequest().authenticated()
+				.and().authorizeRequests()
 				.and().exceptionHandling()
 				.authenticationEntryPoint((req, res, error) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
 				.addFilter(authenticationFilter()).sessionManagement().and()

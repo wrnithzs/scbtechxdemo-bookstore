@@ -3,13 +3,14 @@ package com.example.scbtechxdemo.service;
 import java.util.List;
 
 import com.example.scbtechxdemo.controller.request.BookRequest;
+import com.example.scbtechxdemo.controller.response.BookResponse;
 import com.example.scbtechxdemo.model.Book;
 
 public interface BookService {
 
-	List<Book> getAllBooks();
+	BookResponse getAllBooks();
 
-	List<Book> getAllBooksSortByNameAndRecommended();
+	BookResponse getAllBooksSortByNameAndRecommended();
 
 	Book getBookById(Long id);
 

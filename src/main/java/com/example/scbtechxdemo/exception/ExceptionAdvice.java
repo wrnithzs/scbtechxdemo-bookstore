@@ -26,4 +26,9 @@ public class ExceptionAdvice {
 		return ex.getMessage();
 	}
 
+	@ExceptionHandler
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	String handlerUserException(UserNotFoundException ex) {
+		return ex.getMessage();
+	}
 }
