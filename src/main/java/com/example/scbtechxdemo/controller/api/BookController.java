@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.scbtechxdemo.controller.request.BookRequest;
+import com.example.scbtechxdemo.controller.response.BookResponse;
 import com.example.scbtechxdemo.exception.ValidationException;
 import com.example.scbtechxdemo.model.Book;
 import com.example.scbtechxdemo.service.BookService;
@@ -29,7 +30,7 @@ public class BookController {
 	}
 
 	@GetMapping
-	public List<Book> getBooks() {
+	public BookResponse getBooks() {
 		return booksService.getAllBooksSortByNameAndRecommended();
 	}
 

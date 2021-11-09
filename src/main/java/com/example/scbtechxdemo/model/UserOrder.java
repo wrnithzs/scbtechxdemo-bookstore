@@ -2,13 +2,13 @@ package com.example.scbtechxdemo.model;
 
 import java.math.BigDecimal;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,15 +18,11 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
-public class Book {
+
+public class UserOrder {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
-	private String name;
-	private String author;
-	private BigDecimal price;
-	@JsonProperty("is_recommended")
-	private Boolean isRecommended;
-
+	private long id;	
+	private long userId; // User
+	private BigDecimal totalPrice;
 }

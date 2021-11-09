@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import com.example.scbtechxdemo.controller.request.BookRequest;
+import com.example.scbtechxdemo.controller.response.BookResponse;
 import com.example.scbtechxdemo.exception.BookNotFoundException;
 import com.example.scbtechxdemo.model.Book;
 import com.example.scbtechxdemo.repository.BookRepository;
@@ -16,16 +17,18 @@ import com.example.scbtechxdemo.repository.BookRepository;
 @Service
 public class BookServiceImpl implements BookService {
 
-	BookRepository booksRepository;
+	private BookRepository booksRepository;
 
 	BookServiceImpl(BookRepository booksRepository) {
 		this.booksRepository = booksRepository;
+
 	}
 
 	@Override
-	public List<Book> getAllBooks() {
+	public BookResponse getAllBooks() {
+		List<Book> books = booksRepository.findAll();
 
-		return booksRepository.findAll();
+		return new BookResponse(books);
 	}
 
 	@Override
@@ -70,11 +73,10 @@ public class BookServiceImpl implements BookService {
 		} catch (Exception e) {
 			throw new BookNotFoundException(id);
 		}
-
 	}
 
 	@Override
-	public List<Book> getAllBooksSortByNameAndRecommended() {
+	public BookResponse getAllBooksSortByNameAndRecommended() {
 		List<Order> orders = new ArrayList<Order>();
 
 		Order isRecommended = new Order(Sort.Direction.DESC, "isRecommended");
@@ -82,8 +84,9 @@ public class BookServiceImpl implements BookService {
 		Order name = new Order(Sort.Direction.ASC, "name");
 		orders.add(name);
 
-		return booksRepository.findAll(Sort.by(orders));
+		List<Book> books = booksRepository.findAll(Sort.by(orders));
 
+		return new BookResponse(books);
 	}
 
 }
