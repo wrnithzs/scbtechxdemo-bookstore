@@ -1,3 +1,35 @@
+# How to run project
+```
+<Eclipse> 
+
+1. install Spring Tools 4 from Eclipse Marketplace 
+
+2. Run As Maven clean 
+3. Run As Maven install 
+4. Run As Spring Boot App
+
+<VS Code>
+
+1. Run command 
+
+Install Extension  
+
+1. Java Extension Pack
+2. Lombok Annotaions Support for VS Code
+3.  run command ` ./mvnw spring-boot:run `
+
+
+2. Run By Spring Boot Dashboard 
+
+Install Extension  
+
+1. Lombok Annotaions Support for VS Code
+2. Spring Boot Dashboard
+3. Spring Boot Tools 
+4. Spring initializr Java Support
+5. Run By Spring Boot Dashboard 
+```
+
 # CuRL Script
 
 ## POST: /login
